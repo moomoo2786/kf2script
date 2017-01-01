@@ -91,7 +91,7 @@ def get_subscribed_id_list():
     option = "ServerSubscribedWorkshopItems"
     if section in ini and option in ini[section]:
         id_list = ini[section][option]
-        if "" in id_list:
+        if isinstance(id_list, list ) and "" in id_list:
             id_list.remove("")
     return id_list
 
