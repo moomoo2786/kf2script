@@ -93,7 +93,7 @@ def get_subscribed_id_list():
         id_list = ini[section][option]
         if isinstance(id_list, str):
             id_list = [id_list]
-            
+
         if "" in id_list:
             id_list.remove("")
     return id_list
@@ -126,15 +126,20 @@ def sync_map(id, ini):
         return []
 
     print ("map file(cache): " + cachefile)
-
-    try:
-        shutil.copy2(cachefile, settings.map_dir())
-    except e:
-        print(e)
-        return []
-
-    
     filename = os.path.basename(cachefile)
+
+    if sys.platform == "linux" or sys.platform == "linux2":
+        dest = settings.map_dir() + "/" + filename
+        if os.path.exists(dest):
+            os.remove(dest)
+        os.symlink(cachefile, dest)
+    else:
+        try:
+            shutil.copy2(cachefile, settings.map_dir())
+        except e:
+            print(e)
+            return []
+
     mapname = os.path.splitext(filename)[0]
 
     ssKey = "ScreenshotPathName"
