@@ -128,21 +128,20 @@ def sync_map(id, ini):
 
     print ("map file(cache): " + cachefile)
     filename = os.path.basename(cachefile)
-    mapname = os.path.splitext(filename)[0]
-    mapname = mapname.replace("'", "")
-    dest = settings.map_dir() + "/" + mapname + ".kfm"
 
     if sys.platform == "linux" or sys.platform == "linux2":
+        dest = settings.map_dir() + "/" + filename
         if os.path.exists(dest):
             os.remove(dest)
         os.symlink(cachefile, dest)
     else:
         try:
-            shutil.copy2(cachefile, dest)
+            shutil.copy2(cachefile, settings.map_dir())
         except e:
             print(e)
             return []
 
+    mapname = os.path.splitext(filename)[0]
 
     ssKey = "ScreenshotPathName"
     ssValue = "UI_MapPreview_TEX.UI_MapPreview_Placeholder"
