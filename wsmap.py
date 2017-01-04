@@ -20,7 +20,8 @@ from bottle import route, run, template, static_file, HTTPResponse, auth_basic
 
 
 maplist_path="maplist.json"
-base_url="http://steamcommunity.com/workshop/browse/?appid=232090&searchtext=map&browsesort=mostrecent&p={page}"
+#base_url="http://steamcommunity.com/workshop/browse/?appid=232090&searchtext=map&browsesort=mostrecent&p={page}"
+base_url="https://steamcommunity.com/workshop/browse/?appid=232090&browsesort=mostrecent&section=readytouseitems&p={page}"
 mapfile_extension = ".kfm"
 
 
